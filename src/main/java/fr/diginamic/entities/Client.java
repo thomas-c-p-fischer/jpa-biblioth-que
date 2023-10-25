@@ -9,43 +9,38 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/** Entité Livre */
+/** Entité Client */
 @Entity
-@Table(name="LIVRE")
-public class Livre {
+@Table(name="CLIENT")
+public class Client {
 	
 	/** id */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	/** auteur */
-	@Column(name = "AUTEUR", length = 50, nullable = false)
-	private String auteur;
+	/** nom */
+	@Column(name="NOM", length=50, nullable=false)
+	private String nom;
 	
-	/** titre */
-	@Column(name = "TITRE", length = 255, nullable = false)
-	private String titre;
+	/** prenom */
+	@Column(name="PRENOM", length=50, nullable=false)
+	private String prenom;
 	
-	/** emprunts */
-	@ManyToMany
-	@JoinTable(name = "COMPO",
-				joinColumns = @JoinColumn(name="ID_LIV", referencedColumnName = "ID"),
-				inverseJoinColumns = @JoinColumn(name="ID_EMP", referencedColumnName = "ID"))
+	/** emprunt */
+	@OneToMany(mappedBy = "client")
 	private List<Emprunt> emprunts = new ArrayList<>();
-	
+
 	/** Constructeur */
-	public Livre() {
+	public Client() {
 	}
 
 	@Override
 	public String toString() {
-		return "Livre [id=" + id + "]";
+		return "Client [id=" + id + ", nom=" + nom + ", prenom=" + prenom + "]";
 	}
 
 	/** Getter
@@ -63,31 +58,31 @@ public class Livre {
 	}
 
 	/** Getter
-	 * @return the auteur
+	 * @return the nom
 	 */
-	public String getAuteur() {
-		return auteur;
+	public String getNom() {
+		return nom;
 	}
 
 	/** Setter
-	 * @param auteur the auteur to set
+	 * @param nom the nom to set
 	 */
-	public void setAuteur(String auteur) {
-		this.auteur = auteur;
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	/** Getter
-	 * @return the titre
+	 * @return the prenom
 	 */
-	public String getTitre() {
-		return titre;
+	public String getPrenom() {
+		return prenom;
 	}
 
 	/** Setter
-	 * @param titre the titre to set
+	 * @param prenom the prenom to set
 	 */
-	public void setTitre(String titre) {
-		this.titre = titre;
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
 	}
 
 	/** Getter
